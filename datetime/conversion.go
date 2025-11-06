@@ -37,17 +37,17 @@ func IsTimeInRangeStr(timeStr, startStr, endStr, layout string) (bool, error) {
 }
 
 // RandomTimeInRange 在一个范围内生成随机时间
-func RandomTimeInRange(start, end time.Time) (time.Time, error) {
+func RandomTimeInRange(start, end time.Time) (*time.Time, error) {
 	if start.After(end) {
-		return time.Time{}, fmt.Errorf("start time must be before or equal to end time")
+		return nil, fmt.Errorf("start时间不能晚于end时间")
 	}
 
 	if start.Equal(end) {
-		return start, nil
+		return &start, nil
 	}
 
 	duration := end.Sub(start)
 	randomDuration := time.Duration(rand.Int63n(int64(duration)))
 	randomTime := start.Add(randomDuration)
-	return randomTime, nil
+	return &randomTime, nil
 }

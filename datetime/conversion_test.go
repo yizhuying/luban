@@ -114,19 +114,23 @@ func TestRandomTimeInRange(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := RandomTimeInRange(tt.args.start, tt.args.end)
-			t.Logf("Generated time: %v", got)
-			fmt.Println(got.Format("15:04:05"))
-
-			// 验证错误状态一致
 			if (err != nil) != tt.expectError {
 				t.Errorf("RandomTimeInRange() error = %v, expectError %v", err, tt.expectError)
 				return
 			}
 
-			// 如果不需要错误，则执行自定义验证函数
-			if !tt.expectError && tt.validateFn != nil {
-				if !tt.validateFn(got, tt.args.start, tt.args.end) {
-					t.Errorf("RandomTimeInRange() got = %v, which does not satisfy validation criteria for [%v, %v]", got, tt.args.start, tt.args.end)
+			// 只有在没有预期错误时才进行后续操作
+			if !tt.expectError {
+				t.Logf("Generated time: %v", got)
+				if got != nil {
+					fmt.Println(got.Format("15:04:05"))
+				}
+
+				// 执行自定义验证函数
+				if tt.validateFn != nil && got != nil {
+					if !tt.validateFn(*got, tt.args.start, tt.args.end) {
+						t.Errorf("RandomTimeInRange() got = %v, which does not satisfy validation criteria for [%v, %v]", got, tt.args.start, tt.args.end)
+					}
 				}
 			}
 		})

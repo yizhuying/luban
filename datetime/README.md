@@ -35,14 +35,14 @@ import (
 )
 
 func main() {
-	inRange, err := datetime.IsTimeInRangeStr("2023-01-15 10:00:00", "2023-01-01 00:00:00", "2023-01-31 23:59:59", "2006-01-02 15:04:05")
+	inRange, err := datetime.IsTimeInRangeStr("2023-01-15 10:00:00",
+		"2023-01-01 00:00:00", "2023-01-31 23:59:59", "2006-01-02 15:04:05")
 	if err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println(inRange)
 
 	// 输出: true
-
 }
 
 ```
@@ -70,8 +70,8 @@ import (
 )
 
 func main() {
-	start := time.Date(2020, 6, 15, 13, 0, 0, 0, time.UTC)
-	end := time.Date(2020, 6, 15, 13, 30, 0, 0, time.UTC)
+	start := time.Date(2025, 11, 30, 13, 0, 0, 0, time.UTC)
+	end := time.Date(2025, 11, 30, 13, 30, 0, 0, time.UTC)
 	randomTime, err := datetime.RandomTimeInRange(start, end)
 	if err != nil {
 		fmt.Println(err)
@@ -79,6 +79,6 @@ func main() {
 	fmt.Println(randomTime)
 }
 
-// 输出: 2020-06-15 13:09:05.000000000 +0000 UTC
+// 输出: 2025-11-30 13:15:55.741863177 +0000 UTC
 
 ```
